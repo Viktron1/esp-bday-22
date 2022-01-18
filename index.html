@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"/>
+</head>
+<body>
+    <script>
+        const users = {"SYSADMIN": "9/18",
+                     "bud": "1/31",
+                     "cherry": "6/26",
+                     "dai": "9/10",
+                     "diab": "6/16",
+                     "esperna": "1/17",
+                     "eva": "12/17",
+                     "hime": "4/4",
+                     "jason": "12/29",
+                     "melv": "7/14",
+                     "panda": "2/27",
+                     "phirm": "9/5",
+                     "ren": "10/20",
+                     "scoli": "12/28",
+                     "shi": "11/22",
+                     "tankenka": "4/1",
+                     "trev": "12/25",
+                     "winnie": "4/6"};
+        
+        var buildings = ["White House", "Sydney Opera House", "Empire State Building", "Taj Mahal", "Eiffel Tower", "Colosseum", "Burj Khalifa", "Space Needle", "Pantheon", "Buckingham Palace", "Great Pyramid of Giza", "Notre Dame", "Big Ben", "Great Wall", "Leaning Tower", "Kremlin", "Tokyo Tower"];
+        
+        
+        var currUser = "SYSADMIN"
+        var term = $('body').terminal({
+            hello: function(what) {
+                this.echo('Hello, ' + what +
+                          '. Welcome to this terminal.');
+            },
+            help: function() {
+                this.echo('8ball "<question>"\t\t Ask the oracle a question.\n' +
+                          'date\t\t\t\t\t Get the current date\n' +
+                          'birthday\t\t\t\t Wish the current user a happy birthday!\n' +
+                          'ligma\t\t\t\t\t What\'s ligma?\n' +
+                          'login "<user>"\t\t\t Login as the given user.\n' +
+                          'selfdestruct\t\t\t ☢️☢️☢️\n' +
+                          'users\t\t\t\t\t List of users in the system.\n' +
+                          'whoami\t\t\t\t\t Get the name of the current user.\n');
+            },
+            '8ball': function(question) {
+                var answers = ['It is certain.', 'Yes.', 'Outlook is good.', 'Without a doubt.', 'It is certain', "Don't count on it.", 'My sources say no.', 'Ask again later.', 'lol idfk'];
+                this.echo(answers[Math.floor(Math.random() * answers.length)]);
+            },
+            login: function(username) {
+                if (username === "SYSADMIN" && currUser !== "SYSADMIN") {
+                    this.echo(currUser + " is not in the sudoers file. This incident will be reported.");
+                }else if (!(users.hasOwnProperty(username))) {
+                    this.echo("ERROR: no such user " + username + ".");
+                } else {
+                    currUser = username;
+                    this.echo("Logged in as " + username + ".");
+                }
+            },
+            date: function() {
+                this.echo("1/17/2022");
+            },
+            birthday: function() {
+                if (currUser === "esperna") {
+                    this.echo('           ~                  ~\n     *                   *                *       *\n                  *               *\n  ~       *                *         ~    *\n              *       ~        *              *   ~\n                  )         (         )              *\n    *    ~     ) (_)   (   (_)   )   (_) (  *\n           *  (_) # ) (_) ) # ( (_) ( # (_)       *\n              _#.-#(_)-#-(_)#(_)-#-(_)#-.#_\n  *         .\' #  # #  #  # # #  #  # #  # `.   ~     *\n           :   #    #  #  #   #  #  #    #   :\n    ~      :.       #     #   #     #       .:      *\n        *  | `-.__                     __.-\' | *\n           |      `````"""""""""""`````      |         *\n     *     |         | ||\\ |~)|~)\\ /         |\n           |         |~||~\\|~ |~  |          |       ~\n   ~   *   |                                 | *\n           |      |~)||~)~|~| ||~\\|\\ \\ /     |         *\n   *    _.-|      |~)||~\\ | |~|| /|~\\ |      |-._\n      .\'   \'.      ~            ~           .\'   `.  *\n      :      `-.__                     __.-\'      :\n       `.         `````"""""""""""`````         .\'\n         `-.._                             _..-\'\n              `````""""-----------""""`````');
+                    this.echo("To esp: You are awesome! It is a pleasure to know you and everyone else in Washoku.\n        We'll all meet up in real life someday - I've never looked forward to it so much.\n        Good luck to everything in your future, especially you and melv 💖💖💖\n  - from: SYSADMIN Rinnosuke")
+                } else if (currUser === "admin") {
+                    this.echo("ERROR: It is not admin's birthday but he is still very cool 😎")
+                } else {
+                    this.echo("ERROR: It is not " + currUser + "'s birthday.");
+                }
+            },
+            "users": function() {
+                this.echo(JSON.stringify(users, null, '\t'));
+            },
+            whoami: function() {
+                this.echo(currUser);
+            },
+            ligma: function() {
+                this.echo("l😎😎😎igm😎😎😎😎a 😎😎ball😎s😎😎😎😎");
+            },
+            selfdestruct: function() {
+                if (buildings.length === 0) {
+                    this.echo("there is literally no more to blow up you psycho");
+                    return;
+                }
+                let index = Math.floor(Math.random() * buildings.length);
+                let building = buildings[index];
+                buildings.splice(index, 1);
+                this.echo("          _ ._  _ , _ ._\n        (_ ' ( `  )_  .__)\n      ( (  (    )   `)  ) _)\n     (__ (_   (_ . _) _) ,__)\n         `~~`\\ ' . /`~~`\n              ;   ;\n              /   \\\n_____________/_ __ \\_____________");
+                this.echo("oh shit that was the " + building);
+            }
+        }, {
+            greetings: 'Welcome to terminal.DOB - Type help for a list of commands :)'
+        });
+</script>
+</body>
+</html>
